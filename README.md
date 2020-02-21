@@ -1,1 +1,1 @@
-# Optics By Example
+# optics-by-example
