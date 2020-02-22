@@ -1,23 +1,4 @@
-{-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE PackageImports #-}
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
-{-# OPTIONS_GHC -Wno-unused-imports #-}
-{- HLINT ignore "Unused LANGUAGE pragma" -}
-
-module Main where
-
-import Control.Applicative
-import Control.Lens
-import Data.Char
-import "generic-lens" Data.Generics.Product.Fields (field)
-import qualified Data.Map as Map
-import qualified Data.Set as Set
-import qualified Data.Text as Text
+module Main (main) where
 
 main :: IO ()
 main = putStrLn "Hello world"
