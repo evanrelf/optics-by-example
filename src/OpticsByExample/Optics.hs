@@ -12,6 +12,8 @@
 
 {-# OPTIONS_GHC -Wno-unused-imports #-}
 
+{- HLINT ignore "Unused LANGUAGE pragma" -}
+
 
 module OpticsByExample.Optics where
 
@@ -19,10 +21,12 @@ module OpticsByExample.Optics where
 import Control.Applicative
 import Data.Char
 import "generic-optics" Data.Generics.Product.Fields (field)
+import Data.List (sort)
 import qualified Data.Map as Map
 import qualified Data.Set as Set
 import qualified Data.Text as Text
 import GHC.Generics (Generic)
+import Numeric.Optics (negated)
 import Optics
 import Prelude hiding (zip)
 
@@ -84,4 +88,80 @@ ex3 =
     [(True, Left 10), (False, Right "pepperoni"), (True, Left 20)]
 
 
-{- HLINT ignore "Unused LANGUAGE pragma" -}
+-- -- | Example 4
+-- -- >>> ex4
+-- -- ["This one t...","Nuff said.","This is a ..."]
+-- ex4 :: [String]
+-- ex4 =
+--   let
+--     stories =
+--       [ "This one time at band camp"
+--       , "Nuff said."
+--       , "This is a short story"
+--       ]
+--   in
+--     over
+--       (traversed % filtered ((> 10) . length))
+--       (\story -> take 10 story <> "...")
+--       stories
+
+
+--------------------------------------------------------------------------------
+-- 2.5 Impractical optics at a glance
+--------------------------------------------------------------------------------
+
+
+-- -- | Example 5
+-- -- >>> ex5
+-- -- 27
+-- ex5 :: Int
+-- ex5 = sumOf (folded % beside negated id) [Left 1, Right 10, Left 2, Right 20]
+
+
+-- -- | Example 6
+-- -- >>> ex6
+-- -- "Why Is A Raven Like A Writing Desk"
+-- ex6 :: String
+-- ex6 = "why is a raven like a writing desk" & worded % _head %~ toUpper
+
+
+-- -- | Example 7
+-- -- >>> ex7
+-- -- (Just 300,Left ("hello",[1300,1500,1700]))
+-- ex7 :: (Maybe Int, Either (String, [Int]) ())
+-- ex7 = (Just 3, Left ("hello", [13,15,17])) & biplate *~ (100 :: Int)
+
+
+-- -- | Example 8
+-- -- >>> ex8
+-- -- [1,8,3,6,5,4,7,2]
+-- ex8 :: [Int]
+-- ex8 = [1 .. 8] & partsOf (traversed % filtered even) %~ reverse
+
+
+-- | Example 9
+-- >>> ex9
+-- ("eee","hno","orttw")
+ex9 :: (String, String, String)
+ex9 = ("one", "two", "three") & partsOf (each % traversed) %~ sort
+
+
+-- -- | Example 10
+-- -- >>> ex10
+-- -- [3,0,1,6]
+-- ex10 :: [Int]
+-- ex10 = [1 .. 4] & traversed % bitAt 1 %~ not
+
+
+-- -- | Example 11
+-- -- doctest doesn't work with getLine :-(
+-- ex11 :: IO (String, String, String)
+-- ex11 =
+--   let
+--     prompts =
+--       ( "What is your name?"
+--       , "What is your quest?"
+--       , "What is your favorite color?"
+--       )
+--   in
+--     prompts & each %%~ (\prompt -> putStrLn prompt >> getLine)
