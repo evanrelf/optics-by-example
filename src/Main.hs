@@ -1,5 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE PackageImports #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TemplateHaskell #-}
@@ -13,6 +14,7 @@ module Main where
 import Control.Applicative
 import Control.Lens
 import Data.Char
+import "generic-lens" Data.Generics.Product.Fields (field)
 import qualified Data.Map as Map
 import qualified Data.Set as Set
 import qualified Data.Text as Text
