@@ -50,3 +50,19 @@ executable optics-by-example
     -threaded
     -rtsopts
     -with-rtsopts=-N
+
+
+--------------------------------------------------------------------------------
+-- Tests
+--------------------------------------------------------------------------------
+
+
+test-suite doctests
+  type: exitcode-stdio-1.0
+  main-is: doctest.hs
+  hs-source-dirs: test
+  build-depends:
+    , base ^>= 4.12.0.0
+    , doctest
+  default-language: Haskell2010
+  ghc-options: -threaded

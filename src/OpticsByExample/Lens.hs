@@ -27,6 +27,9 @@ import GHC.Generics (Generic)
 import Prelude hiding (zip)
 
 
+-- | 2.4 Practical optics at a glance
+
+
 data Address = Address
   { street1 :: String
   , street2 :: String
@@ -57,14 +60,23 @@ person = Person
   }
 
 
+-- | Example 1
+-- >>> ex1
+-- "United States"
 ex1 :: String
 ex1 = view (#address . #country) person
 
 
+-- | Example 2
+-- >>> ex2
+-- ('a','b',False)
 ex2 :: (Char, Char, Bool)
 ex2 = set _3 False ('a', 'b', 'c')
 
 
+-- | Example 3
+-- >>> ex3
+-- 30
 ex3 :: Int
 ex3 =
   sumOf
